@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv()
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'r-+!gqt$4j0@0d!6szf(ik)4&ljgr++jd$hu^x_^p=^wxckfj2'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,7 +34,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',
+    'daphne',
+    # 'channels',
     'chat',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -124,6 +128,8 @@ STATIC_URL = '/static/'
 # pointing to channels
 ASGI_APPLICATION = 'chatlie.asgi.application'
 
+REDIS_HOST = os.environ['REDIS_HOST']
+REDIS_PORT = int(os.environ['REDIS_PORT'])
 CHANNEL_LAYERS={
         'default': {
              'BACKEND': 'channels_redis.core.RedisChannelLayer',
@@ -132,4 +138,3 @@ CHANNEL_LAYERS={
                  },
              },
         }
-

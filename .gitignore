@@ -1,3 +1,5 @@
 chatlie/__pycache__
 db.sqlite3
 chat/__pycache__
+.env
+.venv/
